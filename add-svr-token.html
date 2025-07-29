@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add SVR Token to MetaMask</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+    button {
+      padding: 15px 25px;
+      font-size: 16px;
+      background-color: #f6851b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #e2761b;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="addSVRToken()">Add SVR to MetaMask</button>
+
+  <script>
+    async function addSVRToken() {
+      try {
+        const wasAdded = await window.ethereum.request({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: '0xefC39AAeB07444BB3242F04572bb4284BA5164D5',
+              symbol: 'SVR',
+              decimals: 18,
+              image: 'https://i.imgur.com/spuviD5.png',
+            },
+          },
+        });
+
+        if (wasAdded) {
+          alert('✅ SVR token added to MetaMask!');
+        } else {
+          alert('❌ User rejected token addition.');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('⚠️ Error adding token. Make sure MetaMask is installed.');
+      }
+    }
+  </script>
+</body>
+</html>
